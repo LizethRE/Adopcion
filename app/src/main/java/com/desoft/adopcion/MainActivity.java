@@ -1,5 +1,6 @@
 package com.desoft.adopcion;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -74,9 +75,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+          //  return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }
@@ -90,21 +91,32 @@ public class MainActivity extends AppCompatActivity
         boolean fragmentSeleccionado = false;
 
         if (id == R.id.nav_inicio) {
-            miFragment = new InicioFragment();
-            fragmentSeleccionado = true;
+            Intent i = new Intent(this, DetalleActivity.class);
+            startActivity(i);
+            //miFragment = new InicioFragment();
+            //fragmentSeleccionado = true;
         } else if (id == R.id.nav_perfil) {
             miFragment = new PerfilFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_publicaciones) {
-            miFragment = new PublicacionesFragment();
-            fragmentSeleccionado = true;
+            Intent i = new Intent(this, OpcionActivity.class);
+            startActivity(i);
+            //miFragment = new PublicacionesFragment();
+            //fragmentSeleccionado = true;
         } else if (id == R.id.nav_acerca) {
             miFragment = new AcercaFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_compartir) {
-
+            Intent i = new Intent();
+            i.setAction(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Adopta Un Amigo");
+            i.putExtra(Intent.EXTRA_TEXT, "Te recomiendo esta aplicacion para adoptar, dar en adopcion o buscar hogar (perro o gato). www.desoft.com/adopta");
+            startActivity(Intent.createChooser(i, "Compartir via"));
         } else if (id == R.id.nav_salir) {
-
+            finish();
+            //Crear accion
+            //Remover
         }
 
         if (fragmentSeleccionado){
